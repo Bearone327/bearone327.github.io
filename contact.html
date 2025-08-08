@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - Catering Company</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            line-height: 1.6;
+        }
+                header {
+            background-image: url('IMG_3560.JPG');
+            background-size: contain;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 250px; /* or any height you prefer */
+            padding: 20px;
+            text-align: center;
+        }
+                nav {
+            background-color: #000000;
+            margin:  0;
+        }
+        nav a {
+            margin: 0 20px;
+            text-decoration: none;
+            color: #fcfafa;
+            font-weight: bold;
+        }
+        nav a:hover {
+            color: #a72020;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+        .section {
+            padding: 40px;
+            text-align: center;
+        }
+        .contact-form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        input, textarea, select {
+            width: 50%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        textarea {
+            resize: vertical;
+        }
+        button {
+            background-color: black;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+        button:hover {
+            background-color: #218838;
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+                
+        footer {
+            background-color: #333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+        }
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+        .success {
+            color: green;
+            font-size: 14px;
+            margin-top: -10px;
+            margin-bottom: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+        <header>
+        
+
+    </header>
+
+    <section id="nav" class="section">
+        <nav>
+            <a href="main.html">Home</a>
+            <a href="budget_friendly.html">Budget Friendly</a>
+            <a href="something_to_impress.html">Something To Impress</a>
+            <a href="premium_offerings.html">Premium Offerings</a>
+            <a href="contact.html">Contact</a>
+        </nav>
+    </section>
+        <h1>Contact Us</h1>
+        <div class="contact-form">
+             <form id="contactForm" action="https://formspree.io/f/mgvzpagd" method="POST">
+                <div class="form-group">
+                    <label for="name">Full Name:</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" required placeholder="Enter your email">
+                </div>
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                </div>
+                <div class="form-group">
+                    <label for="date">Date Of Event:</label>
+                    <input type="text" id="date" name="date" placeholder="Enter your date of event">
+                </div>
+                <div class="form-group">
+                    <label for="location">Location Of Event:</label>
+                    <input type="text" id="location" name="location" placeholder="Enter your location of event">
+                </div>
+                <div class="form-group">
+                    <label for="guests">Number Of Guests:</label>
+                    <input type="text" id="guests" name="guests" placeholder="Enter your number of guests">
+                </div>
+                <div class="form-group">
+                    <label for="package">Package Description:</label>
+                    <select id="package" name="package" required>
+                        <option value="" disabled selected>Select a package</option>
+                        <option value="basic">Budget Friendly</option>
+                        <option value="standard">Something To Impress</option>
+                        <option value="premium">Premium Offerings</option>
+                        <option value="custom">Custom Package</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comments">Additional Comments:</label>
+                    <textarea id="comments" name="comments" rows="5" placeholder="Any special requests or additional details"></textarea>
+                </div>
+                <div id="successMessage" class="success">Form submitted successfully!</div>
+                <div id="errorMessage" class="error">An error occurred. Please try again.</div>
+                <button type="submit">Submit</button>
+              
+            </form>
+        </div>
+    </section> 
+    
+    <footer>
+        <p>&copy; 2025 East Meets West Catering Concepts. All rights reserved.</p>
+    </footer>
+
+    <script>
+        document.getElementById("contactForm").addEventListener("submit", async function(event) {
+            event.preventDefault();
+
+            const form = event.target;
+            const successMessage = document.getElementById("successMessage");
+            const errorMessage = document.getElementById("errorMessage");
+
+            try {
+                const response = await fetch(form.action, {
+                    method: form.method,
+                    body: new FormData(form),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    successMessage.style.display = "block";
+                    errorMessage.style.display = "none";
+                    form.reset();
+                    setTimeout(() => {
+                        successMessage.style.display = "none";
+                    }, 3000);
+                } else {
+                    throw new Error("Server response was not ok");
+                }
+            } catch (error) {
+                console.error("Error:", error);
+                errorMessage.style.display = "block";
+                successMessage.style.display = "none";
+                setTimeout(() => {
+                    errorMessage.style.display = "none";
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>
